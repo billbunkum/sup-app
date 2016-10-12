@@ -1,8 +1,8 @@
 {
-  "name": "",
+  "name": "sub-app",
   "version": "1.0.0",
-  "description": "",
-  "repository": "",
+  "description": "mayhem bunkum msgs for the planet",
+  "repository": "sup-app",
   "scripts": {
     "start": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1",

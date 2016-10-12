@@ -1,7 +1,3 @@
-# DJANGO SEED
+# sup-app
 
-Starting point for Django, Django Rest Framework, Angular, Webpack and Gulp projects.
-
-See the using-django-seed.md in the docs for usage.
-
-**Replace the contents of this doc with a README for your project**
+An anonymous msg app w/ full privileges for all.
