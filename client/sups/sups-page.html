@@ -6,6 +6,10 @@
             <p class="lead">
                 View all the sups
             </p>
+            <sups-edit
+                sup="supsPageCtrl.editedSup"
+                save="supsPageCtrl.saveSup(editedSup)"
+            />
         </div>
     </div>
 
@@ -15,7 +19,7 @@
             <hr>
         </h2>
 
-        <sups-item sup="supsPageCtrl.sup" />
+        <sups-item ng-repeat="sup in supsPageCtrl.sups" sup="sup" />
     </div>
 
 </div> <!-- END row -->
