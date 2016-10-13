@@ -1,10 +1,10 @@
 
-function SupsPageController(flashesService) {
+function SupsPageController(flashesService, supsAPIService, $interval) {
     const ctrl = this;
     ctrl.editedSup = {}; //used in sups-edit.controller.js
 
     function getSups() {
-        supsAPIService.sups.get().$promise.then((date) => {
+        supsAPIService.sups.get().$promise.then((data) => {
             ctrl.sups = data.results;
         });
     }

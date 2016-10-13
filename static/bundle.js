@@ -66,13 +66,17 @@
 	
 	var _sups2 = _interopRequireDefault(_sups);
 	
-	var _app = __webpack_require__(17);
+	var _flashes = __webpack_require__(7);
+	
+	var _flashes2 = _interopRequireDefault(_flashes);
+	
+	var _app = __webpack_require__(23);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var AppModule = _angular2.default.module('app', [_sups2.default.name]).component('app', _app2.default);
+	var AppModule = _angular2.default.module('app', [_sups2.default.name, _flashes2.default.name]).component('app', _app2.default);
 	
 	exports.default = AppModule;
 
@@ -31873,23 +31877,31 @@
 	
 	__webpack_require__(5);
 	
-	var _supsPage = __webpack_require__(7);
+	var _flashes = __webpack_require__(7);
+	
+	var _flashes2 = _interopRequireDefault(_flashes);
+	
+	var _supsPage = __webpack_require__(12);
 	
 	var _supsPage2 = _interopRequireDefault(_supsPage);
 	
-	var _supsItem = __webpack_require__(10);
+	var _supsItem = __webpack_require__(15);
 	
 	var _supsItem2 = _interopRequireDefault(_supsItem);
 	
-	var _supsEdit = __webpack_require__(13);
+	var _supsEdit = __webpack_require__(18);
 	
 	var _supsEdit2 = _interopRequireDefault(_supsEdit);
 	
+	var _supsApi = __webpack_require__(22);
+	
+	var _supsApi2 = _interopRequireDefault(_supsApi);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var SupsModule = _angular2.default.module('sups', ['ngResource']).config(function ($resourceProvider) {
+	var SupsModule = _angular2.default.module('sups', ['ngResource', _flashes2.default.name]).config(function ($resourceProvider) {
 	    $resourceProvider.defaults.stripTrailingSlashes = false;
-	}).factory('supsAPIService', supsAPIService).component('supsPage', _supsPage2.default).component('supsEdit', _supsEdit2.default).component('supsItem', _supsItem2.default);
+	}).factory('supsAPIService', _supsApi2.default).component('supsPage', _supsPage2.default).component('supsEdit', _supsEdit2.default).component('supsItem', _supsItem2.default);
 	
 	exports.default = SupsModule;
 
@@ -32780,11 +32792,127 @@
 	    value: true
 	});
 	
-	var _supsPage = __webpack_require__(8);
+	var _angular = __webpack_require__(2);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _flashes = __webpack_require__(8);
+	
+	var _flashes2 = _interopRequireDefault(_flashes);
+	
+	var _flashes3 = __webpack_require__(11);
+	
+	var _flashes4 = _interopRequireDefault(_flashes3);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var FlashesModule = _angular2.default.module('flashes', []).factory('flashesService', _flashes4.default).component('flashes', _flashes2.default);
+	
+	exports.default = FlashesModule;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _flashes = __webpack_require__(9);
+	
+	var _flashes2 = _interopRequireDefault(_flashes);
+	
+	var _flashes3 = __webpack_require__(10);
+	
+	var _flashes4 = _interopRequireDefault(_flashes3);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var flashesComponent = {
+	    template: _flashes2.default,
+	    controller: _flashes4.default,
+	    controllerAs: 'flashesCtrl'
+	};
+	
+	exports.default = flashesComponent;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = "<div \n    ng-repeat=\"flash in flashesCtrl.flashes\"\n    class=\"alert alert-{{flash.type}}\"\n>\n    {{ flash.message }}\n</div>"
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	function flashesController(flashesService) {
+	    var ctrl = this;
+	
+	    ctrl.flashes = flashesService.flashes;
+	}
+	
+	exports.default = flashesController;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	function flashesService($timeout) {
+	    var flashes = [];
+	
+	    function displayMessage(message) {
+	        var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'info';
+	
+	        var flash = {
+	            message: message,
+	            type: type
+	        };
+	
+	        flashes.push(flash);
+	
+	        $timeout(function () {
+	            var index = flashes.indexOf(flash);
+	            flashes.splice(index, 1);
+	        }, 3000);
+	    }
+	
+	    return {
+	        flashes: flashes,
+	        displayMessage: displayMessage
+	    };
+	}
+	
+	exports.default = flashesService;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _supsPage = __webpack_require__(13);
 	
 	var _supsPage2 = _interopRequireDefault(_supsPage);
 	
-	var _supsPage3 = __webpack_require__(9);
+	var _supsPage3 = __webpack_require__(14);
 	
 	var _supsPage4 = _interopRequireDefault(_supsPage3);
 	
@@ -32800,16 +32928,16 @@
 	exports.default = supsPageComponent;
 
 /***/ },
-/* 8 */
+/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"row\">\n\n    <div class=\"col-md-4\">\n        <div class=\"jumbotron\">\n            <h2>Sups up?</h2>\n            <p class=\"lead\">\n                View all the sups\n            </p>\n            <sups-edit\n                sup=\"supsPageCtrl.editedSup\"\n                save=\"supsPageCtrl.saveSup(editedSup)\"\n            />\n        </div>\n    </div>\n\n    <div class=\"col-md-8\">\n        <h2>\n            Recent Supy-suppies\n            <hr>\n        </h2>\n\n        <sups-item ng-repeat=\"sup in supsPageCtrl.sups\" sup=\"sup\" />\n    </div>\n\n</div> <!-- END row -->"
 
 /***/ },
-/* 9 */
+/* 14 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -32817,12 +32945,12 @@
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
-	function SupsPageController() {
+	function SupsPageController(flashesService, supsAPIService, $interval) {
 	    var ctrl = this;
 	    ctrl.editedSup = {}; //used in sups-edit.controller.js
 	
 	    function getSups() {
-	        supsAPIService.sups.get().$promise.then(function (date) {
+	        supsAPIService.sups.get().$promise.then(function (data) {
 	            ctrl.sups = data.results;
 	        });
 	    }
@@ -32834,6 +32962,7 @@
 	            ctrl.sups = [//sup will now appear immediately when saved because...
 	            savedSup].concat(_toConsumableArray(ctrl.sups));
 	            ctrl.editedSup = {};
+	            flashesService.displayMessage('Sup created', 'success');
 	        });
 	
 	        //        alert(editedSup.text); //.text is from form in sups-edit.html
@@ -32843,7 +32972,7 @@
 	exports.default = SupsPageController;
 
 /***/ },
-/* 10 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32852,11 +32981,11 @@
 	    value: true
 	});
 	
-	var _supsItem = __webpack_require__(11);
+	var _supsItem = __webpack_require__(16);
 	
 	var _supsItem2 = _interopRequireDefault(_supsItem);
 	
-	var _supsItem3 = __webpack_require__(12);
+	var _supsItem3 = __webpack_require__(17);
 	
 	var _supsItem4 = _interopRequireDefault(_supsItem3);
 	
@@ -32874,13 +33003,13 @@
 	exports.default = supsItemComponent;
 
 /***/ },
-/* 11 */
+/* 16 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        {{ supsItemCtrl.sup.text }}\n    </div>\n    <div class=\"panel-footer clearfix\">\n        <div class=\"pull-right\">\n            {{ supsItemCtrl.sup.created_date | date:'medium' }}\n        </div>\n    </div>\n</div>"
 
 /***/ },
-/* 12 */
+/* 17 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32893,7 +33022,7 @@
 	exports.default = SupsItemController;
 
 /***/ },
-/* 13 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32902,11 +33031,11 @@
 	    value: true
 	});
 	
-	var _supsEdit = __webpack_require__(14);
+	var _supsEdit = __webpack_require__(19);
 	
 	var _supsEdit2 = _interopRequireDefault(_supsEdit);
 	
-	var _supsEdit3 = __webpack_require__(15);
+	var _supsEdit3 = __webpack_require__(20);
 	
 	var _supsEdit4 = _interopRequireDefault(_supsEdit3);
 	
@@ -32925,13 +33054,13 @@
 	exports.default = supsEditComponent;
 
 /***/ },
-/* 14 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = "<form ng-submit=\"supsEditCtrl.saveSup()\">\n    <div class=\"form-group\">\n        <label>\n            Suuuup\n        </label>\n        <textarea ng-model=\"supsEditCtrl.editedSup.text\" class=\"form-control\"></textarea>\n    </div>\n    <button class=\"btn btn-warning\" type=\"submit\">\n        Save'up!\n    </button>\n</form>"
 
 /***/ },
-/* 15 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32940,7 +33069,7 @@
 	    value: true
 	});
 	
-	var _ramda = __webpack_require__(16);
+	var _ramda = __webpack_require__(21);
 	
 	function SupsEditController() {
 	    var ctrl = this;
@@ -32951,7 +33080,7 @@
 	        ctrl.editedSup = (0, _ramda.merge)({}, ctrl.sup); //overwrites {} w/ key from 'ctrl.sup' and returns it
 	    };
 	
-	    ctr.saveSup = function saveSup() {
+	    ctrl.saveSup = function saveSup() {
 	        ctrl.save({ editedSup: ctrl.editedSup });
 	    };
 	}
@@ -32959,7 +33088,7 @@
 	exports.default = SupsEditController;
 
 /***/ },
-/* 16 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//  Ramda v0.22.1
@@ -41796,7 +41925,26 @@
 
 
 /***/ },
-/* 17 */
+/* 22 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	function supsAPIService($resource) {
+	    var api = {
+	        sups: $resource('/api/sups/')
+	    };
+	
+	    return api;
+	}
+	
+	exports.default = supsAPIService;
+
+/***/ },
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41805,11 +41953,11 @@
 	    value: true
 	});
 	
-	var _app = __webpack_require__(18);
+	var _app = __webpack_require__(24);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _app3 = __webpack_require__(19);
+	var _app3 = __webpack_require__(25);
 	
 	var _app4 = _interopRequireDefault(_app3);
 	
@@ -41824,13 +41972,13 @@
 	exports.default = appComponent;
 
 /***/ },
-/* 18 */
+/* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "<header>\n    <nav class=\"navbar navbar-inverse navbar-static-top\">\n        <div class=\"container-fluid\">\n            <div class=\"navbar-header\">\n                <span class=\"navbar-brand\">\n                    <i class=\"fa fa-thumbs-o-up\"></i> Sup-dude\n                </span>\n            </div>\n        </div>\n    </nav>\n</header>\n<div class=\"container-fluid\">\n    <sups-page />\n</div> <!-- END container -->"
+	module.exports = "<header>\n    <nav class=\"navbar navbar-inverse navbar-static-top\">\n        <div class=\"container-fluid\">\n            <div class=\"navbar-header\">\n                <span class=\"navbar-brand\">\n                    <i class=\"fa fa-thumbs-o-up\"></i> Sup-dude\n                </span>\n            </div>\n        </div>\n    </nav>\n</header>\n<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-md-4 col-md-offset-4\">\n            <flashes />\n        </div>\n    </div>\n    <sups-page />\n</div> <!-- END container -->"
 
 /***/ },
-/* 19 */
+/* 25 */
 /***/ function(module, exports) {
 
 	"use strict";

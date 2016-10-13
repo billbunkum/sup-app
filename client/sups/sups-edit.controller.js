@@ -10,7 +10,7 @@ function SupsEditController() {
         ctrl.editedSup = merge({}, ctrl.sup); //overwrites {} w/ key from 'ctrl.sup' and returns it
     };
 
-    ctr.saveSup = function saveSup() {
+    ctrl.saveSup = function saveSup() {
         ctrl.save( { editedSup: ctrl.editedSup });
     };
 }
