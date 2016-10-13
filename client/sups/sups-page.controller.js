@@ -1,5 +1,5 @@
 
-function SupsPageController() {
+function SupsPageController(flashesService) {
     const ctrl = this;
     ctrl.editedSup = {}; //used in sups-edit.controller.js
 
@@ -19,6 +19,7 @@ function SupsPageController() {
 // ... is an ES6 'spread operator'; takes every item in spread array '...ctrl.sups' and pastes into parent array 'ctrl.sups'
             ];
             ctrl.editedSup = {};
+            flashesService.displayMessage('Sup created', 'success');
         });
 
 //        alert(editedSup.text); //.text is from form in sups-edit.html
