@@ -24,6 +24,12 @@ function SupsPageController(flashesService, supsAPIService, $interval) {
 
 //        alert(editedSup.text); //.text is from form in sups-edit.html
     };
+
+    ctrl.deleteSup = function deleteSup(supToDelete) {
+        supsAPIService.sups.delete(supToDelete).$promise.then((data) => {
+            flashesService.displayMessage('Another Sup bites the dust!', 'success');
+        }); //'success' defines class "color" for message
+    };
 }
 
 export default SupsPageController;

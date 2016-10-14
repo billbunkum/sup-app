@@ -1,0 +1,10 @@
+
+flashes {
+    position: absolute;
+    bottom: 0;
+    z-index: 20000; /* puts element on TOP of others...by an inordinate amount */
+}
+
+.sups-item .panel-footer {
+    min-height: 65px;
+}

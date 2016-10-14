@@ -32931,7 +32931,7 @@
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row\">\n\n    <div class=\"col-md-4\">\n        <div class=\"jumbotron\">\n            <h2>Sups up?</h2>\n            <p class=\"lead\">\n                View all the sups\n            </p>\n            <sups-edit\n                sup=\"supsPageCtrl.editedSup\"\n                save=\"supsPageCtrl.saveSup(editedSup)\"\n            />\n        </div>\n    </div>\n\n    <div class=\"col-md-8\">\n        <h2>\n            Recent Supy-suppies\n            <hr>\n        </h2>\n\n        <sups-item ng-repeat=\"sup in supsPageCtrl.sups\" sup=\"sup\" />\n    </div>\n\n</div> <!-- END row -->"
+	module.exports = "<div class=\"row\">\n\n    <div class=\"col-md-4\">\n        <div class=\"jumbotron\">\n            <h2>Sups up?</h2>\n            <p class=\"lead\">\n                View all the sups\n            </p>\n            <sups-edit\n                sup=\"supsPageCtrl.editedSup\"\n                save=\"supsPageCtrl.saveSup(editedSup)\"\n            />\n        </div>\n    </div>\n\n    <div class=\"col-md-8\">\n        <h2>\n            Recent Supy-suppies\n            <hr>\n        </h2>\n\n        <sups-item ng-repeat=\"sup in supsPageCtrl.sups track by sup.id\" \n                    sup=\"sup\" \n                    delete=\"supsPageCtrl.deleteSup(supToDelete)\"\n        />\n    </div>\n\n</div> <!-- END row -->"
 
 /***/ },
 /* 14 */
@@ -32967,6 +32967,12 @@
 	
 	        //        alert(editedSup.text); //.text is from form in sups-edit.html
 	    };
+	
+	    ctrl.deleteSup = function deleteSup(supToDelete) {
+	        supsAPIService.sups.delete(supToDelete).$promise.then(function (data) {
+	            flashesService.displayMessage('Another Sup bites the dust!', 'success');
+	        }); //'success' defines class "color" for message
+	    };
 	}
 	
 	exports.default = SupsPageController;
@@ -32994,7 +33000,8 @@
 	var supsItemComponent = {
 	    template: _supsItem2.default,
 	    bindings: {
-	        sup: '<'
+	        sup: '<',
+	        delete: '&'
 	    },
 	    controller: _supsItem4.default,
 	    controllerAs: 'supsItemCtrl'
@@ -33006,7 +33013,7 @@
 /* 16 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        {{ supsItemCtrl.sup.text }}\n    </div>\n    <div class=\"panel-footer clearfix\">\n        <div class=\"pull-right\">\n            {{ supsItemCtrl.sup.created_date | date:'medium' }}\n        </div>\n    </div>\n</div>"
+	module.exports = "<div class=\"panel panel-default sups-item\"\n        ng-mouseover=\"supsItemCtrl.setShowControls(true)\"\n        ng-mouseout=\"supsItemCtrl.setShowControls(false)\"\n>\n    <div class=\"panel-body\">\n        {{ supsItemCtrl.sup.text }}\n    </div>\n    <div class=\"panel-footer clearfix\">\n<!-- 'clearfix' helps w/ bs pull classes -->\n        <div class=\"pull-right\">\n            {{ supsItemCtrl.sup.created_date | date:'medium' }}\n        </div>\n        <div class=\"sups-item-controls\" ng-show=\"supsItemCtrl.showControls\">\n            <button class=\"btn btn-default\">\n                <i class=\"fa fa-pencil-square-o\"></i>\n            </button>\n            <button class=\"btn btn-danger\" ng-click=\"supsItemCtrl.deleteSup()\">\n                <i class=\"fa fa-trash-o\"></i>\n            </button>\n        </div>\n    </div>\n</div>"
 
 /***/ },
 /* 17 */
@@ -33015,9 +33022,20 @@
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	function SupsItemController() {}
+	function SupsItemController() {
+	    var ctrl = this;
+	    ctrl.showControls = false;
+	
+	    ctrl.setShowControls = function setShowControls(showControls) {
+	        ctrl.showControls = showControls;
+	    };
+	
+	    ctrl.deleteSup = function deleteSup() {
+	        ctrl.delete({ supToDelete: ctrl.sup });
+	    };
+	}
 	
 	exports.default = SupsItemController;
 
@@ -41935,7 +41953,7 @@
 	});
 	function supsAPIService($resource) {
 	    var api = {
-	        sups: $resource('/api/sups/')
+	        sups: $resource('/api/sups/:id')
 	    };
 	
 	    return api;
@@ -41975,7 +41993,7 @@
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "<header>\n    <nav class=\"navbar navbar-inverse navbar-static-top\">\n        <div class=\"container-fluid\">\n            <div class=\"navbar-header\">\n                <span class=\"navbar-brand\">\n                    <i class=\"fa fa-thumbs-o-up\"></i> Sup-dude\n                </span>\n            </div>\n        </div>\n    </nav>\n</header>\n<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-md-4 col-md-offset-4\">\n            <flashes />\n        </div>\n    </div>\n    <sups-page />\n</div> <!-- END container -->"
+	module.exports = "<header>\n    <nav class=\"navbar navbar-inverse navbar-static-top\">\n        <div class=\"container-fluid\">\n            <div class=\"navbar-header\">\n                <span class=\"navbar-brand\">\n                    <i class=\"fa fa-thumbs-o-up\"></i>\n                    Sup-dude\n                </span>\n            </div>\n        </div>\n    </nav>\n</header>\n<div class=\"container-fluid\">\n    <flashes />\n    <sups-page />\n</div> <!-- END container -->"
 
 /***/ },
 /* 25 */
