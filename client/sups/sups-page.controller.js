@@ -1,3 +1,5 @@
+import { findIndex } from 'ramda';
+//importing a 'piece' requires { ... }
 
 function SupsPageController(flashesService, supsAPIService, $interval) {
     const ctrl = this;
@@ -26,6 +28,16 @@ function SupsPageController(flashesService, supsAPIService, $interval) {
     };
 
     ctrl.deleteSup = function deleteSup(supToDelete) {
+//        const index = findIndex(item => supToDelete.id === item.id)(ctrl.sups);
+        const findSup = findIndex(item => supToDelete.id === item.id);
+//when findIndex iterates and finds === true, returns ???
+
+        const index = findSup(ctrl.sups);
+
+        if (index === -1) {
+            ctrl.sups.splice(index, 1);
+        }
+
         supsAPIService.sups.delete(supToDelete).$promise.then((data) => {
             flashesService.displayMessage('Another Sup bites the dust!', 'success');
         }); //'success' defines class "color" for message

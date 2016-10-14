@@ -6,7 +6,7 @@ const supsItemComponent = {
     template,
     bindings: {
         sup: '<',
-        delete: '&',
+        delete: '&', //redirect wrapper
     },
     controller: SupsItemController,
     controllerAs: 'supsItemCtrl',

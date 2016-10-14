@@ -3,7 +3,16 @@
         ng-mouseout="supsItemCtrl.setShowControls(false)"
 >
     <div class="panel-body">
-        {{ supsItemCtrl.sup.text }}
+        <p class="lead" ng-show="!supsItemCtrl.editMode">
+            {{ supsItemCtrl.sup.text }}
+        </p>
+        <sups-edit
+            ng-show="supsItemCtrl.editMode"
+            sup=""
+            save=""
+            cancel="supsItemCtrl.setEditMode(false)"
+        />
+
     </div>
     <div class="panel-footer clearfix">
 <!-- 'clearfix' helps w/ bs pull classes -->
@@ -11,7 +20,7 @@
             {{ supsItemCtrl.sup.created_date | date:'medium' }}
         </div>
         <div class="sups-item-controls" ng-show="supsItemCtrl.showControls">
-            <button class="btn btn-default">
+            <button class="btn btn-default" ng-click="supsItemCtrl.setEditMode(true)">
                 <i class="fa fa-pencil-square-o"></i>
             </button>
             <button class="btn btn-danger" ng-click="supsItemCtrl.deleteSup()">

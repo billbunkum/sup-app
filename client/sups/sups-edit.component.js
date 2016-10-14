@@ -7,6 +7,7 @@ const supsEditComponent = {
     bindings: {
         save: '&',
         sup: '<',
+        cancel: '&?',
     },
     controller: SupsEditController,
     controllerAs: 'supsEditCtrl',
